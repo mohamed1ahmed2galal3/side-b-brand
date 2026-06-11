@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SIDE//B — Premium Urban Fashion. Where identity meets craft.">
+<title>SIDE//B — Premium Urban Fashion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #000000;
+    --white: #F5F5F3;
+    --gray: #888888;
+    --dark: #0A0A0A;
+    --card: #111111;
+    --border: rgba(245,245,243,0.1);
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Space Grotesk', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--white);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(245,245,243,0.5);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.25s ease, width 0.3s, height 0.3s, background 0.3s;
+  }
+  body:hover .cursor-ring.hovering {
+    width: 60px; height: 60px;
+    background: rgba(245,245,243,0.05);
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 2px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--white); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 28px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    mix-blend-mode: difference;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--white);
+    transition: width 0.4s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-menu { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .nav-menu span { display: block; width: 24px; height: 1px; background: var(--white); transition: all 0.3s; }
+
+  /* HERO */
+  #hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    overflow: hidden;
+    background: var(--black);
+  }
+  .hero-bg-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: clamp(120px, 22vw, 340px);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(245,245,243,0.06);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    animation: slowdrift 20s ease-in-out infinite alternate;
+  }
+  @keyframes slowdrift {
+    from { transform: translate(-52%, -50%) rotate(-1deg); }
+    to   { transform: translate(-48%, -50%) rotate(1deg); }
+  }
+
+  .hero-slash-decor {
+    position: absolute;
+    top: 0; right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(245,245,243,0.15), transparent);
+    transform: translateX(-180px);
+  }
+  .hero-slash-decor2 {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(245,245,243,0.08), transparent);
+    transform: translateX(200px);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--gray);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 10vw, 140px);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    margin-bottom: 32px;
+    max-width: 900px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+  .hero-title em { font-style: italic; font-weight: 400; }
+
+  .hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+  .hero-statement {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--gray);
+    max-width: 320px;
+    font-weight: 300;
+  }
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+  .btn-primary {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--white);
+    color: var(--black);
+    border: none;
+    padding: 16px 36px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s, transform 0.3s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gray); color: var(--white); transform: translateY(-2px); }
+
+  .btn-ghost {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(245,245,243,0.3);
+    padding: 16px 36px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.3s, transform 0.3s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--white); transform: translateY(-2px); }
+
+  .hero-scroll-indicator {
+    position: absolute;
+    right: 48px;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+  .hero-scroll-indicator span {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray);
+    writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--white), transparent);
+    animation: scrollpulse 2s ease infinite;
+  }
+  @keyframes scrollpulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50% { opacity: 0.3; transform: scaleY(0.7); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    background: var(--white);
+    padding: 18px 0;
+    border-top: 1px solid var(--black);
+    border-bottom: 1px solid var(--black);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 18s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--black);
+    padding: 0 40px;
+  }
+  .marquee-sep { color: var(--gray); margin: 0 -20px; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* SECTION SHARED */
+  .section-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .section-label::before {
+    content: '//';
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+
+  /* ABOUT */
+  #about {
+    padding: 140px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+  #about::before {
+    content: 'B';
+    position: absolute;
+    right: -40px; top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-display);
+    font-size: 600px;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(245,245,243,0.04);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .about-left .section-label { margin-bottom: 40px; }
+  .about-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+  }
+  .about-title em { font-style: italic; font-weight: 400; display: block; }
+
+  .about-body {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--gray);
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+    border: 1px solid var(--border);
+  }
+  .stat {
+    padding: 28px 24px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .about-right {
+    position: relative;
+    height: 600px;
+  }
+  .about-img-main {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    right: 0; top: 0;
+    filter: grayscale(100%);
+    transition: filter 0.6s ease;
+  }
+  .about-img-main:hover { filter: grayscale(0%); }
+  .about-img-overlay {
+    position: absolute;
+    bottom: -30px; left: 0;
+    width: 55%;
+    height: 260px;
+    object-fit: cover;
+    filter: grayscale(100%);
+    border: 4px solid var(--dark);
+    transition: filter 0.6s ease;
+  }
+  .about-img-overlay:hover { filter: grayscale(0%); }
+
+  /* COLLECTION */
+  #collection {
+    padding: 140px 48px;
+    background: var(--black);
+  }
+  .collection-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 72px;
+  }
+  .collection-title {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 6vw, 88px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .collection-title em { font-style: italic; font-weight: 400; }
+  .collection-count {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--gray);
+    text-transform: uppercase;
+    padding-bottom: 8px;
+  }
+
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    gap: 16px;
+  }
+
+  .col-item {
+    position: relative;
+    overflow: hidden;
+    background: var(--card);
+    cursor: pointer;
+  }
+  .col-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1; aspect-ratio: 3/4; }
+  .col-item:nth-child(2) { grid-column: 6 / 9; grid-row: 1; aspect-ratio: 2/3; }
+  .col-item:nth-child(3) { grid-column: 9 / 13; grid-row: 1; aspect-ratio: 3/4; }
+  .col-item:nth-child(4) { grid-column: 1 / 5; grid-row: 2; aspect-ratio: 4/3; }
+  .col-item:nth-child(5) { grid-column: 5 / 9; grid-row: 2; aspect-ratio: 4/3; }
+  .col-item:nth-child(6) { grid-column: 9 / 13; grid-row: 2; aspect-ratio: 4/3; }
+
+  .col-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(60%);
+    transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94),
+                filter 0.5s ease;
+    display: block;
+  }
+  .col-item:hover img {
+    transform: scale(1.06);
+    filter: grayscale(0%);
+  }
+
+  .col-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+  }
+  .col-item:hover .col-overlay { opacity: 1; }
+  .col-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    transform: translateY(10px);
+    transition: transform 0.4s ease;
+  }
+  .col-item:hover .col-name { transform: translateY(0); }
+  .col-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray);
+    transform: translateY(10px);
+    transition: transform 0.4s ease 0.05s;
+  }
+  .col-item:hover .col-tag { transform: translateY(0); }
+
+  /* PHILOSOPHY */
+  #philosophy {
+    padding: 140px 48px;
+    background: var(--dark);
+  }
+  .philosophy-header {
+    max-width: 600px;
+    margin-bottom: 80px;
+  }
+  .philosophy-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .philosophy-sub {
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .philosophy-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .philo-card {
+    background: var(--card);
+    padding: 48px 36px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+  .philo-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--white);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+  }
+  .philo-card:hover { background: #181818; }
+  .philo-card:hover::before { transform: scaleX(1); }
+
+  .philo-num {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(245,245,243,0.2);
+    line-height: 1;
+    margin-bottom: 32px;
+    transition: -webkit-text-stroke-color 0.4s;
+  }
+  .philo-card:hover .philo-num { -webkit-text-stroke-color: rgba(245,245,243,0.5); }
+
+  .philo-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .philo-body {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* DIVIDER */
+  .slash-divider {
+    padding: 60px 48px;
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .slash-text {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 72px);
+    font-weight: 900;
+    font-style: italic;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(245,245,243,0.25);
+    display: inline-block;
+    animation: marquee 25s linear infinite;
+  }
+
+  /* TIKTOK */
+  #tiktok {
+    padding: 140px 48px;
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .tiktok-left .section-label { margin-bottom: 40px; }
+  .tiktok-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 64px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  .tiktok-title em { font-style: italic; font-weight: 400; display: block; }
+  .tiktok-body {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 40px;
+    max-width: 380px;
+  }
+  .tiktok-handle {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid var(--white);
+    padding-bottom: 4px;
+    transition: opacity 0.3s;
+    margin-bottom: 40px;
+  }
+  .tiktok-handle:hover { opacity: 0.6; }
+
+  .tiktok-right {
+    position: relative;
+  }
+  .tiktok-frame {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tiktok-frame::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--white), transparent);
+  }
+  .tiktok-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .tiktok-icon-wrap {
+    width: 80px; height: 80px;
+    background: var(--black);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .tiktok-icon-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, transparent 40%, rgba(245,245,243,0.3));
+    pointer-events: none;
+  }
+  .tiktok-icon-svg { width: 36px; height: 36px; fill: var(--white); }
+  .tiktok-username {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .tiktok-desc {
+    font-size: 0.78rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .tiktok-stats {
+    display: flex;
+    gap: 40px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    width: 100%;
+    justify-content: center;
+  }
+  .tiktok-stat { text-align: center; }
+  .tiktok-stat strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  .tiktok-stat span {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .tiktok-follow-btn {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+    margin-top: 8px;
+  }
+  .tiktok-follow-btn:hover { background: var(--gray); color: var(--white); }
+
+  /* CONTACT */
+  #contact {
+    padding: 140px 48px;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+  #contact::before {
+    content: 'CONTACT';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: clamp(80px, 15vw, 200px);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(245,245,243,0.04);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .contact-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .contact-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 32px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+  }
+  .contact-eyebrow::before, .contact-eyebrow::after {
+    content: '//'; color: var(--white);
+  }
+  .contact-title {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 7vw, 100px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+  }
+  .contact-title em { font-style: italic; font-weight: 400; }
+  .contact-sub {
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 440px;
+    margin: 0 auto 56px;
+  }
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 56px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(245,245,243,0.04), transparent 70%);
+    pointer-events: none;
+  }
+  .contact-card:hover { border-color: rgba(245,245,243,0.35); }
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 20px 48px;
+    transition: background 0.3s, transform 0.3s;
+    margin-bottom: 32px;
+    display: inline-flex;
+  }
+  .wa-btn:hover { background: #f0f0ee; transform: translateY(-3px); }
+  .wa-icon { width: 20px; height: 20px; fill: var(--black); flex-shrink: 0; }
+  .contact-note {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    text-transform: uppercase;
+  }
+
+  /* FLOATING WA */
+  .float-wa {
+    position: fixed;
+    bottom: 32px; right: 32px;
+    width: 56px; height: 56px;
+    background: var(--white);
+    border-radius: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200;
+    text-decoration: none;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    transition: transform 0.3s, background 0.3s;
+  }
+  .float-wa:hover { transform: translateY(-4px) scale(1.05); background: #f0f0ee; }
+  .float-wa svg { width: 26px; height: 26px; fill: var(--black); }
+
+  /* FOOTER */
+  footer {
+    padding: 80px 48px 40px;
+    background: var(--black);
+    border-top: 1px solid var(--border);
+  }
+  .footer-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 72px;
+    gap: 40px;
+  }
+  .footer-brand {}
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    display: block;
+    text-decoration: none;
+    color: var(--white);
+  }
+  .footer-tagline {
+    font-size: 0.72rem;
+    color: var(--gray);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .footer-links {
+    display: flex;
+    gap: 80px;
+  }
+  .footer-col h4 {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 24px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a {
+    font-size: 0.82rem;
+    color: rgba(245,245,243,0.6);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-copy {
+    font-size: 0.7rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+  .footer-socials { display: flex; gap: 24px; align-items: center; }
+  .social-link {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .social-link:hover { color: var(--white); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    nav { padding: 24px 28px; }
+    .nav-links { display: none; }
+    .nav-menu { display: flex; }
+    #hero { padding: 0 28px 60px; }
+    .hero-scroll-indicator { display: none; }
+    #about { grid-template-columns: 1fr; padding: 80px 28px; gap: 60px; }
+    .about-right { height: 380px; }
+    #collection { padding: 80px 28px; }
+    .col-item:nth-child(1) { grid-column: 1 / 7; }
+    .col-item:nth-child(2) { grid-column: 7 / 13; }
+    .col-item:nth-child(3) { grid-column: 1 / 7; }
+    .col-item:nth-child(4) { grid-column: 7 / 13; }
+    .col-item:nth-child(5) { grid-column: 1 / 7; }
+    .col-item:nth-child(6) { grid-column: 7 / 13; }
+    .philosophy-cards { grid-template-columns: 1fr 1fr; }
+    #tiktok { grid-template-columns: 1fr; padding: 80px 28px; gap: 60px; }
+    #contact { padding: 80px 28px; }
+    .contact-card { padding: 36px 28px; }
+    .footer-top { flex-direction: column; }
+    .footer-links { flex-wrap: wrap; gap: 40px; }
+    #philosophy { padding: 80px 28px; }
+    .collection-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+
+  @media (max-width: 640px) {
+    .hero-title { font-size: clamp(40px, 14vw, 80px); }
+    .hero-bottom { flex-direction: column; align-items: flex-start; }
+    .collection-grid { grid-template-columns: 1fr 1fr; }
+    .col-item:nth-child(n) { grid-column: auto; grid-row: auto; aspect-ratio: 3/4; }
+    .philosophy-cards { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .about-stats .stat:last-child { grid-column: 1 / -1; border-right: none; border-top: 1px solid var(--border); }
+    .footer-links { flex-direction: column; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/201102946965" target="_blank" class="float-wa" aria-label="Contact on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SIDE//B</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#tiktok">Social</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-menu" id="navMenu">
+    <span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text" aria-hidden="true">SIDE//B</div>
+  <div class="hero-slash-decor"></div>
+  <div class="hero-slash-decor2"></div>
+
+  <div class="hero-eyebrow">Premium Urban Fashion · Est. 2024</div>
+
+  <h1 class="hero-title">
+    Wear Your<br>
+    <em>Other Side.</em>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="hero-statement">
+      Fashion is not what you wear —<br>
+      it's the version of yourself you choose<br>
+      to show the world today.
+    </p>
+    <div class="hero-ctas">
+      <a href="#collection" class="btn-primary">Explore Collection</a>
+      <a href="#contact" class="btn-ghost">Contact Us</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">SIDE//B</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Premium Streetwear</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Urban Identity</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Self Expression</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">SIDE//B</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Premium Streetwear</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Urban Identity</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Self Expression</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">SIDE//B</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Premium Streetwear</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Urban Identity</span>
+    <span class="marquee-item marquee-sep">·</span>
+    <span class="marquee-item">Self Expression</span>
+    <span class="marquee-item marquee-sep">·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <div class="section-label reveal">About the Brand</div>
+    <h2 class="about-title reveal reveal-delay-1">
+      Born from<br>
+      <em>The Streets.</em><br>
+      Built for<br>
+      <em>The Stage.</em>
+    </h2>
+    <p class="about-body reveal reveal-delay-2">
+      SIDE//B is not a clothing brand. It is a mirror. A collection that confronts the side of you that most people never get to see — raw, refined, and unapologetically real.
+    </p>
+    <p class="about-body reveal reveal-delay-2">
+      Every piece is designed at the intersection of luxury craftsmanship and streetwear culture. We source premium fabrics, obsess over silhouette, and build garments that carry meaning beyond the stitching.
+    </p>
+    <p class="about-body reveal reveal-delay-3">
+      This is fashion for those who know exactly who they are — and aren't afraid to dress like it.
+    </p>
+    <div class="about-stats reveal">
+      <div class="stat">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Premium Fabrics</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">SS25</div>
+        <div class="stat-label">Season</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Identity</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-right reveal">
+    <img src="Images/WhatsApp Image 2026-06-12 at 12.01.56 AM.jpeg" alt="SIDE//B Collection piece" class="about-img-main">
+    <img src="Images/WhatsApp Image 2026-06-12 at 12.01.57 AM (1).jpeg" alt="SIDE//B Collection detail" class="about-img-overlay">
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="collection-header reveal">
+    <div>
+      <div class="section-label">Featured Collection</div>
+      <h2 class="collection-title">
+        SS25<br>
+        <em>Drop One.</em>
+      </h2>
+    </div>
+    <span class="collection-count">06 / Pieces Shown</span>
+  </div>
+
+  <div class="collection-grid">
+    <div class="col-item reveal">
+      <img src="Images/WhatsApp Image 2026-06-12 at 12.01.56 AM.jpeg" alt="Blue Stripe Shirt">
+      <div class="col-overlay">
+        <div class="col-name">Azure Stripe Shirt</div>
+        <div class="col-tag">SS25 · Relaxed Fit</div>
+      </div>
+    </div>
+    <div class="col-item reveal reveal-delay-1">
+      <img src="Images/WhatsApp Image 2026-06-12 at 12.01.57 AM (1).jpeg" alt="Dark Plaid Shirt">
+      <div class="col-overlay">
+        <div class="col-name">Noir Grid Shirt</div>
+        <div class="col-tag">SS25 · Oversized</div>
+      </div>
+    </div>
+    <div class="col-item reveal reveal-delay-2">
+      <img src="Images/WhatsApp Image 2026-06-12 at 12.01.57 AM (2).jpeg" alt="Rust Plaid Shirt">
+      <div class="col-overlay">
+        <div class="col-name">Rust Check Shirt</div>
+        <div class="col-tag">SS25 · Cropped</div>
+      </div>
+    </div>
+    <div class="col-item reveal">
+      <img src="Images/WhatsApp Image 2026-06-12 at 12.01.57 AM (3).jpeg" alt="Butter Goods Shirt">
+      <div class="col-overlay">
+        <div class="col-name">Monochrome Check</div>
+        <div class="col-tag">SS25 · Box Fit</div>
+      </div>
+    </div>
+    <div class="col-item reveal reveal-delay-1">
+      <img src="Images/WhatsApp Image 2026-06-12 at 12.01.57 AM.jpeg" alt="Green Plaid Shirt">
+      <div class="col-overlay">
+        <div class="col-name">Forest Plaid Shirt</div>
+        <div class="col-tag">SS25 · Boxy</div>
+      </div>
+    </div>
+    <div class="col-item reveal reveal-delay-2">
+      <img src="Images/WhatsApp Image 2026-06-12 at 12.02.50 AM.jpeg" alt="Blue Check Shirt">
+      <div class="col-overlay">
+        <div class="col-name">Indigo Grid Shirt</div>
+        <div class="col-tag">SS25 · Wide Fit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="philosophy-header">
+    <div class="section-label reveal">Our Philosophy</div>
+    <h2 class="philosophy-title reveal reveal-delay-1">Four Pillars.<br><em>One Vision.</em></h2>
+    <p class="philosophy-sub reveal reveal-delay-2">Everything we make is guided by a set of beliefs we refuse to compromise on.</p>
+  </div>
+
+  <div class="philosophy-cards">
+    <div class="philo-card reveal">
+      <div class="philo-num">01</div>
+      <div class="philo-title">Quality</div>
+      <p class="philo-body">We don't chase trends. We invest in materials that last. Every fabric is chosen for its feel, its fall, its lifespan — because real quality is what you feel, not what you see.</p>
+    </div>
+    <div class="philo-card reveal reveal-delay-1">
+      <div class="philo-num">02</div>
+      <div class="philo-title">Design</div>
+      <p class="philo-body">Restraint is the hardest form of creativity. Our silhouettes are intentional — each cut, each proportion, each detail serves the whole. Nothing is accidental at SIDE//B.</p>
+    </div>
+    <div class="philo-card reveal reveal-delay-2">
+      <div class="philo-num">03</div>
+      <div class="philo-title">Identity</div>
+      <p class="philo-body">You are not one thing. SIDE//B was built for the multitude inside you — the raw, the refined, the quiet, and the bold. Wear the side of you that the world isn't ready for.</p>
+    </div>
+    <div class="philo-card reveal reveal-delay-3">
+      <div class="philo-num">04</div>
+      <div class="philo-title">Culture</div>
+      <p class="philo-body">We are a product of the streets, the music, the movement. SIDE//B is not inspired by culture — it is culture. Built by, and for, those who live it every day.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLASH DIVIDER -->
+<div class="slash-divider" aria-hidden="true">
+  <div class="slash-text">
+    SIDE//B · PREMIUM URBAN · SS25 · SELF-EXPRESSION · SIDE//B · PREMIUM URBAN · SS25 · SELF-EXPRESSION · SIDE//B · PREMIUM URBAN · SS25 · SELF-EXPRESSION · SIDE//B · PREMIUM URBAN ·&nbsp;
+  </div>
+</div>
+
+<!-- TIKTOK -->
+<section id="tiktok">
+  <div class="tiktok-left">
+    <div class="section-label reveal">Follow the Movement</div>
+    <h2 class="tiktok-title reveal reveal-delay-1">
+      We Live<br>
+      <em>On Camera.</em>
+    </h2>
+    <p class="tiktok-body reveal reveal-delay-2">
+      The brand doesn't sleep — and neither do we. Follow SIDE//B on TikTok for behind-the-scenes drops, styling content, and the culture that drives every collection forward.
+    </p>
+    <a href="https://www.tiktok.com/@sideb736" target="_blank" class="tiktok-handle reveal reveal-delay-2">
+      @sideb736
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+    </a>
+    <br>
+    <a href="https://www.tiktok.com/@sideb736" target="_blank" class="btn-primary reveal reveal-delay-3">Follow on TikTok</a>
+  </div>
+  <div class="tiktok-right reveal reveal-delay-1">
+    <div class="tiktok-frame">
+      <div class="tiktok-inner">
+        <div class="tiktok-icon-wrap">
+          <svg class="tiktok-icon-svg" viewBox="0 0 24 24">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.97a8.17 8.17 0 0 0 4.78 1.52V7.05a4.85 4.85 0 0 1-1.01-.36z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="tiktok-username">@sideb736</div>
+          <div class="tiktok-desc">Official SIDE//B TikTok</div>
+        </div>
+        <div class="tiktok-stats">
+          <div class="tiktok-stat">
+            <strong>Daily</strong>
+            <span>Content</span>
+          </div>
+          <div class="tiktok-stat">
+            <strong>Drops</strong>
+            <span>First Here</span>
+          </div>
+          <div class="tiktok-stat">
+            <strong>Culture</strong>
+            <span>Raw & Real</span>
+          </div>
+        </div>
+        <a href="https://www.tiktok.com/@sideb736" target="_blank" class="tiktok-follow-btn">Follow Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-eyebrow reveal">Get in Touch</div>
+    <h2 class="contact-title reveal reveal-delay-1">
+      Let's Build<br>
+      <em>Something</em><br>
+      Real.
+    </h2>
+    <p class="contact-sub reveal reveal-delay-2">
+      Whether you're interested in a wholesale inquiry, collaboration, or just want to talk fashion — we're one message away.
+    </p>
+    <div class="contact-card reveal reveal-delay-3">
+      <a href="https://wa.me/201102946965" target="_blank" class="wa-btn">
+        <svg class="wa-icon" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Message on WhatsApp
+      </a>
+      <p class="contact-note">+20 110 294 6965 · Response within 24 hours</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo">SIDE//B</a>
+      <p class="footer-tagline">Premium Urban Fashion · SS25</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#collection">Collection</a></li>
+          <li><a href="#philosophy">Philosophy</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Social</h4>
+        <ul>
+          <li><a href="https://www.tiktok.com/@sideb736" target="_blank">TikTok</a></li>
+          <li><a href="https://wa.me/201102946965" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 SIDE//B. All rights reserved. Wear your other side.</p>
+    <div class="footer-socials">
+      <a href="https://www.tiktok.com/@sideb736" target="_blank" class="social-link">TikTok</a>
+      <a href="https://wa.me/201102946965" target="_blank" class="social-link">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  cursor.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.querySelectorAll('a, button, .col-item, .philo-card').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+});
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// NAV TRANSPARENT ON SCROLL
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) {
+    nav.style.background = 'rgba(0,0,0,0.9)';
+    nav.style.backdropFilter = 'blur(12px)';
+    nav.style.mixBlendMode = 'normal';
+  } else {
+    nav.style.background = '';
+    nav.style.backdropFilter = '';
+    nav.style.mixBlendMode = 'difference';
+  }
+});
+
+// MOBILE MENU (basic toggle)
+const menuBtn = document.getElementById('navMenu');
+const navLinks = document.querySelector('.nav-links');
+menuBtn.addEventListener('click', () => {
+  if (navLinks.style.display === 'flex') {
+    navLinks.style.display = '';
+    navLinks.style.position = '';
+    navLinks.style.top = '';
+    navLinks.style.left = '';
+    navLinks.style.right = '';
+    navLinks.style.flexDirection = '';
+    navLinks.style.background = '';
+    navLinks.style.padding = '';
+    navLinks.style.borderTop = '';
+  } else {
+    navLinks.style.display = 'flex';
+    navLinks.style.position = 'fixed';
+    navLinks.style.top = '72px';
+    navLinks.style.left = '0';
+    navLinks.style.right = '0';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.background = 'rgba(0,0,0,0.97)';
+    navLinks.style.padding = '32px 28px';
+    navLinks.style.gap = '24px';
+    navLinks.style.borderTop = '1px solid rgba(245,245,243,0.1)';
+    navLinks.style.backdropFilter = 'blur(20px)';
+    navLinks.style.zIndex = '99';
+  }
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.style.display = '';
+    navLinks.style.position = '';
+  });
+});
+
+// PARALLAX hero bg text
+const bgText = document.querySelector('.hero-bg-text');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (bgText) bgText.style.transform = `translate(-50%, calc(-50% + ${y * 0.3}px))`;
+});
+</script>
+</body>
+</html>
